@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  border: solid 2px black;
+}
+
+#testWelcome {
+  margin: 10px auto;
+  color: rgb(106, 22, 184);
+  border: solid 1px black;
+  width: 50vw;
+  text-align: center;
+}
