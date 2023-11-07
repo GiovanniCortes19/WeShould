@@ -5,18 +5,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Log-In WeShould</title>
+  <link rel="stylesheet" href="styles/logIn.css">
 </head>
 
 <body>
 
-  <div class="logIn-container">
+  <div class="titleContainer flex">
+    <p class="title">WeShould</p>
+    <p class="info">Never again forget all those <strong>We Should</strong> plans with your friends</p>
+  </div>
 
-    <form method="POST" action="/login">
+  <div class="logIn-container flex">
+    <!-- <p>Log In</p> -->
+
+    <form method="POST" action="/login" class="flex">
       <input name="username" type="text" placeholder="username">
       <input name="password" type="text" placeholder="password">
-      <input type="submit" value="login">
+      <input class="logIn-Btn" type="submit" value="Login">
     </form>
-    <a href="./signUp.html">Sign Up</a>
+    <div class="brLine"></div>
+    <a class="signUp-Btn" href="./signUp.html">Create Account</a>
   </div>
 
 </body>
