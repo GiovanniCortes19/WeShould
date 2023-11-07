@@ -1,0 +1,22 @@
+{
+  "name": "weshould",
+  "version": "1.0.0",
+  "description": "Allows you to create personalized 'we should' lists with your connections",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GiovanniCortes19/WeShould.git"
+  },
+  "keywords": [
+    "connections"
+  ],
+  "author": "Giovanni Cortes Morales",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GiovanniCortes19/WeShould/issues"
+  },
+  "homepage": "https://github.com/GiovanniCortes19/WeShould#readme"
+}
