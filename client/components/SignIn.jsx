@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../styles/signUp.css';
 
-const SignIn = () => {
+const SignIn = ({ setNeedAccount, setLoggedIn }) => {
   return (
     <div className="signinComponentContainer">
       <div className="titleContainer flex">
@@ -14,10 +14,18 @@ const SignIn = () => {
       </div>
 
       <div className="signUp-container flex">
-        <form method="POST" action="/signup" className="flex">
+        <form method="POST" className="flex">
           <input name="username" type="text" placeholder="username" />
           <input name="password" type="text" placeholder="password" />
-          <input className="logIn-Btn" type="submit" value="Create User" />
+          <input
+            className="logIn-Btn"
+            type="submit"
+            value="Create User"
+            onClick={() => {
+              setLoggedIn(true);
+              setNeedAccount(false);
+            }}
+          />
         </form>
       </div>
     </div>

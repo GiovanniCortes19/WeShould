@@ -17,11 +17,11 @@ const App = () => {
         </div>
       )}
 
-      {needAccount && (
-        <SignIn needAccount={needAccount} setNeedAccount={setNeedAccount} />
+      {needAccount && !loggedIn && (
+        <SignIn setNeedAccount={setNeedAccount} setLoggedIn={setLoggedIn} />
       )}
 
-      {!needAccount && (
+      {!needAccount && !loggedIn && (
         <LogIn needAccount={needAccount} setNeedAccount={setNeedAccount} />
       )}
     </>
