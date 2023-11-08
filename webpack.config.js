@@ -43,8 +43,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      // template: './index.html',
-      template: './client/logIn.html',
+      template: './index.html',
+      // template: './client/logIn.html',
     }),
   ],
 };

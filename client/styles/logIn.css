@@ -2,7 +2,7 @@ html {
   background-color: #ebd4f88b;
 }
 
-body {
+.loginComponentContainer {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
