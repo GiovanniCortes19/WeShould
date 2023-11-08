@@ -21,7 +21,7 @@ body {
   flex-direction: column;
 }
 
-.title {
+.login-title {
   font-size: 62px;
   font-weight: bold;
   color: rgb(106, 22, 184);

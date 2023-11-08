@@ -26,17 +26,30 @@ app.get('/', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, '../client/logIn.html'));
 });
 
-app.get('/api/signUp', (req, res) => {
-  console.log('get signup page');
-  return res.sendFile(path.resolve(__dirname, '../client/signUp.html'));
+// SIGNUP
+app.get('/signup', (req, res) => {
+  res.status(200).sendFile(path.resolve(__dirname, '../client/signUp.html'));
 });
+app.post('/signup', (req, res) => {
+  res.status(200).redirect('/homepage');
+});
+
+// AUTHORIZED ENDPOINT
+app.get('/homepage', (req, res) => {
+  res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
+});
+
+// app.get('/api/signUp', (req, res) => {
+//   console.log('get signup page');
+//   return res.sendFile(path.resolve(__dirname, '../client/signUp.html'));
+// });
 // app.get('/signUp', (req, res) => {
 //   console.log('get signup page');
 //   res.sendFile(path.resolve(__dirname, '../client/signUp.html'));
 // });
 
 // UNKOWN ENDPOINTS
-app.use('/api/*', (req, res) => {
+app.use('*', (req, res) => {
   console.log('unkown endpoint handler invoked');
   return res
     .status(404)

@@ -27,22 +27,23 @@ module.exports = {
         },
       },
       {
-        test: /.css/,
+        test: /\.css/,
         use: ['style-loader', 'css-loader'],
       },
     ],
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, 'client'),
+      directory: path.join(__dirname, 'build'),
     },
     port: 8080,
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/**': 'http://localhost:3000',
     },
   },
   plugins: [
     new HtmlWebpackPlugin({
+      // template: './index.html',
       template: './client/logIn.html',
     }),
   ],
