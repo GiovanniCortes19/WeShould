@@ -1,10 +1,15 @@
 // CREATE SERVER CONNECTION AND ROUTES
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
 
 // EXPRESS APP
 const app = express();
 const PORT = 3000;
+
+// CONNECT DATABASE
+const mongoURI = process.env.MONGO_URI;
+mongoose.connect(mongoURI);
 
 // PARSE REQUEST BODY
 app.use(express.json());
@@ -14,15 +19,23 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../client')));
 
 // ROUTE HANDLERS
-// app.get('/api/signup', (req, res) => {
-//   console.log('invoked get signup');
-//   return res
-//     .status(200)
-//     .sendFile(path.join(__dirname, '../client/signUp.html'));
+
+app.get('/', (req, res) => {
+  console.log('get login page');
+  res.status(200).sendFile(path.resolve(__dirname, '../client/logIn.html'));
+});
+
+app.get('/api/signUp', (req, res) => {
+  console.log('get signup page');
+  return res.sendFile(path.resolve(__dirname, '../client/signUp.html'));
+});
+// app.get('/signUp', (req, res) => {
+//   console.log('get signup page');
+//   res.sendFile(path.resolve(__dirname, '../client/signUp.html'));
 // });
 
 // UNKOWN ENDPOINTS
-app.use('*', (req, res) => {
+app.use('/api/*', (req, res) => {
   console.log('unkown endpoint handler invoked');
   return res
     .status(404)
