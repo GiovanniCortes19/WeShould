@@ -1,4 +1,5 @@
 // CREATE SERVER CONNECTION AND ROUTES
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -8,8 +9,8 @@ const app = express();
 const PORT = 3000;
 
 // CONNECT DATABASE
-const mongoURI = process.env.MONGO_URI;
-mongoose.connect(mongoURI);
+// const mongoURI = process.env.MONGO_URI;
+// mongoose.connect(mongoURI);
 
 // PARSE REQUEST BODY
 app.use(express.json());
