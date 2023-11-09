@@ -19,11 +19,19 @@ const Hub = ({ activeHub }) => {
         <div className="ListBox flex">
           <p className="listTitle">Movies</p>
           <ul className="movieList">{movies}</ul>
+          <form action="" className="hubform flex">
+            <input className="hubinput" type="text" />
+            <input className="button" type="submit" value={'add'} />
+          </form>
         </div>
 
         <div className="ListBox flex">
           <p className="listTitle">Restaurants</p>
           <ul className="movieList">{rests}</ul>
+          <form action="" className="hubform flex">
+            <input className="hubinput" type="text" />
+            <input className="button" type="submit" value={'add'} />
+          </form>
         </div>
       </div>
     </div>
