@@ -11,6 +11,21 @@ const Profile = ({ user }) => {
   // prop drill test
   const [newMovie, setNewMovie] = useState('');
   const [newRestaurant, setNewRestaurant] = useState('');
+  const [users, setUsers] = useState([]);
+
+  const usersList = users.map((user) => {
+    return (
+      <div
+        className="hub flex"
+        // onClick={(e) => {
+        //   enterHub();
+        //   e.preventDefault();
+        // }}
+      >
+        <p className="userName">{user.username}</p>
+      </div>
+    );
+  });
 
   const addMovie = (newMovie) => {
     return fetch('http://localhost:8080/addMovie', {
@@ -57,6 +72,15 @@ const Profile = ({ user }) => {
   };
   // prop drill test
 
+  const getUsers = () => {
+    return fetch(`http://localhost:8080/users`)
+      .then((response) => response.json())
+      .then((usersRes) => {
+        console.log('get users response: ', usersRes);
+        setUsers(usersRes);
+      });
+  };
+
   const enterHub = () => {
     setActiveHub(hubs[0]);
   };
@@ -71,6 +95,7 @@ const Profile = ({ user }) => {
   };
 
   useEffect(() => {
+    getUsers();
     getHubs();
   }, [activeHub]);
 
@@ -101,6 +126,11 @@ const Profile = ({ user }) => {
                   <p className="hubName">{hubs[0].name}</p>
                 </div>
               )}
+            </div>
+
+            <div className="findConnectionsBox">
+              <h3>Find Connections</h3>
+              <div className="usersList flex">{usersList}</div>
             </div>
           </>
         )}

@@ -45,6 +45,14 @@ app.post('/login', UserController.verifyUser, (req, res) => {
   res.status(200).json(res.locals.user);
 });
 
+// GET USERS
+app.get('/users', UserController.getUsers, (req, res) => {
+  console.log('Got users from database to connect!');
+  const data = res.locals.data;
+  console.log('users from database: ', data);
+  res.status(200).json(data);
+});
+
 // CREATE HUB CONNECTIONS
 app.post('/connection', HubController.createHub, (req, res) => {
   const hub = res.locals.createdHub;

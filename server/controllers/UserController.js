@@ -77,4 +77,12 @@ UserController.getHub = async (req, res, next) => {
   next();
 };
 
+UserController.getUsers = async (req, res, next) => {
+  const allUsers = await User.find();
+
+  res.locals.data = allUsers;
+
+  next();
+};
+
 module.exports = UserController;
