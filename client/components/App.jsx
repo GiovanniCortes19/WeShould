@@ -9,6 +9,29 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [needAccount, setNeedAccount] = useState(false);
 
+  const testApiCreateUser = (username, password) => {
+    console.log('api test: ', username, password);
+    return fetch('http://localhost:8080/signup', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    })
+      .then((response) => {
+        setLoggedIn(true);
+        setNeedAccount(false);
+        return response.json();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       {loggedIn && (
@@ -18,7 +41,11 @@ const App = () => {
       )}
 
       {needAccount && !loggedIn && (
-        <SignIn setNeedAccount={setNeedAccount} setLoggedIn={setLoggedIn} />
+        <SignIn
+          testApiCreateUser={testApiCreateUser}
+          setNeedAccount={setNeedAccount}
+          setLoggedIn={setLoggedIn}
+        />
       )}
 
       {!needAccount && !loggedIn && (

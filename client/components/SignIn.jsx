@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import '../styles/signUp.css';
 
-const SignIn = ({ setNeedAccount, setLoggedIn }) => {
+const SignIn = ({ setNeedAccount, setLoggedIn, testApiCreateUser }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <div className="signinComponentContainer">
       <div className="titleContainer flex">
@@ -14,18 +17,34 @@ const SignIn = ({ setNeedAccount, setLoggedIn }) => {
       </div>
 
       <div className="signUp-container flex">
-        <form method="POST" className="flex">
-          <input name="username" type="text" placeholder="username" />
-          <input name="password" type="text" placeholder="password" />
+        <form
+          onSubmit={(event) => {
+            testApiCreateUser(username, password);
+            event.preventDefault();
+          }}
+          className="flex"
+        >
           <input
-            className="logIn-Btn"
-            type="submit"
-            value="Create User"
-            onClick={() => {
-              setLoggedIn(true);
-              setNeedAccount(false);
+            name="username"
+            type="text"
+            placeholder="username"
+            value={username}
+            onChange={(event) => {
+              const { value } = event.target;
+              setUsername(value);
             }}
           />
+          <input
+            name="password"
+            type="text"
+            placeholder="password"
+            value={password}
+            onChange={(event) => {
+              const { value } = event.target;
+              setPassword(value);
+            }}
+          />
+          <input className="logIn-Btn" type="submit" value="Create User" />
         </form>
       </div>
     </div>

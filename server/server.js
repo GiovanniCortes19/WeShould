@@ -2,6 +2,8 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
+
 const mongoose = require('mongoose');
 
 // EXPRESS APP
@@ -9,52 +11,43 @@ const app = express();
 const PORT = 3000;
 
 // CONNECT DATABASE
-// const mongoURI = process.env.MONGO_URI;
-// mongoose.connect(mongoURI);
+const mongoURI = process.env.MONGO_URI;
+mongoose.connect(mongoURI);
 
 // PARSE REQUEST BODY
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // STATIC
 app.use(express.static(path.join(__dirname, '../client')));
 
+// CONTROLLERS
+const UserController = require('./controllers/UserController');
+
 // ROUTE HANDLERS
 
 app.get('/', (req, res) => {
   console.log('get login page');
-  res.status(200).sendFile(path.resolve(__dirname, '../client/logIn.html'));
+  res.status(200).json('got the WeShould page');
+  // res.status(200).sendFile(path.resolve(__dirname, '../client/logIn.html'));
 });
 
 // SIGNUP
-app.get('/signup', (req, res) => {
-  res.status(200).sendFile(path.resolve(__dirname, '../client/signUp.html'));
-});
-app.post('/signup', (req, res) => {
-  res.status(200).redirect('/homepage');
+app.post('/signup', UserController.createUser, (req, res) => {
+  console.log('Created user id: ', res.locals.userId);
+  res.status(200).json(res.locals.userId);
 });
 
 // AUTHORIZED ENDPOINT
-app.get('/homepage', (req, res) => {
-  res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
-});
-
-// app.get('/api/signUp', (req, res) => {
-//   console.log('get signup page');
-//   return res.sendFile(path.resolve(__dirname, '../client/signUp.html'));
-// });
-// app.get('/signUp', (req, res) => {
-//   console.log('get signup page');
-//   res.sendFile(path.resolve(__dirname, '../client/signUp.html'));
-// });
 
 // UNKOWN ENDPOINTS
-app.use('*', (req, res) => {
-  console.log('unkown endpoint handler invoked');
-  return res
-    .status(404)
-    .send('You Should Not do that... Go back to a real site!');
-});
+// app.use('*', (req, res, next) => {
+//   console.log('unkown endpoint handler invoked');
+//   return res
+//     .status(404)
+//     .send('You Should Not do that... Go back to a real site!');
+// });
 
 // GLOBAL ERROR
 app.use((err, req, res, next) => {
