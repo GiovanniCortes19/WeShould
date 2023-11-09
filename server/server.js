@@ -39,6 +39,11 @@ app.post('/signup', UserController.createUser, (req, res) => {
   res.status(200).json(res.locals.userId);
 });
 
+app.post('/login', UserController.verifyUser, (req, res) => {
+  console.log('User has logged in!');
+  res.status(200).json(res.locals.user);
+});
+
 // CREATE HUB CONNECTIONS
 app.post('/connection', HubController.createHub, (req, res) => {
   const hubId = res.locals.hubId;

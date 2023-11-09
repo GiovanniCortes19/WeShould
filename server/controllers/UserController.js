@@ -18,4 +18,22 @@ UserController.createUser = async (req, res, next) => {
   next();
 };
 
+UserController.verifyUser = async (req, res, next) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return next({ err: 'invalid user properties' });
+  }
+
+  const foundUser = await User.findOne({ username, password });
+
+  if (!foundUser) {
+    res.status(500).json('NO user found');
+  }
+
+  res.locals.user = foundUser;
+
+  next();
+};
+
 module.exports = UserController;

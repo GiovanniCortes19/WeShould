@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import '../styles/logIn.css';
 
-const LogIn = ({ needAccount, setNeedAccount }) => {
+const LogIn = ({ needAccount, setNeedAccount, LogInUser }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <div className="loginComponentContainer">
       <div className="titleContainer flex">
@@ -14,9 +17,31 @@ const LogIn = ({ needAccount, setNeedAccount }) => {
       </div>
 
       <div className="logIn-container flex">
-        <form method="POST" action="/login" className="flex">
-          <input name="username" type="text" placeholder="username" />
-          <input name="password" type="text" placeholder="password" />
+        <form
+          onSubmit={(event) => {
+            LogInUser(username, password);
+            event.preventDefault();
+          }}
+          className="flex"
+        >
+          <input
+            name="username"
+            type="text"
+            onChange={(event) => {
+              const { value } = event.target;
+              setUsername(value);
+            }}
+            placeholder="username"
+          />
+          <input
+            name="password"
+            type="text"
+            onChange={(event) => {
+              const { value } = event.target;
+              setPassword(value);
+            }}
+            placeholder="password"
+          />
           <input className="logIn-Btn" type="submit" value="Login" />
         </form>
         <div className="brLine"></div>

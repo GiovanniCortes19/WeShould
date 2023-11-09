@@ -35,6 +35,28 @@ const App = () => {
       });
   };
 
+  const LogInUser = (username, password) => {
+    return fetch('http://localhost:8080/login', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    })
+      .then((response) => {
+        setUser(username);
+        setLoggedIn(true);
+        return response.json();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       {loggedIn && <Profile user={user} />}
@@ -42,7 +64,11 @@ const App = () => {
       {needAccount && !loggedIn && <SignIn CreateUser={CreateUser} />}
 
       {!needAccount && !loggedIn && (
-        <LogIn needAccount={needAccount} setNeedAccount={setNeedAccount} />
+        <LogIn
+          LogInUser={LogInUser}
+          needAccount={needAccount}
+          setNeedAccount={setNeedAccount}
+        />
       )}
     </>
   );
