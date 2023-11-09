@@ -41,6 +41,7 @@ app.post('/signup', UserController.createUser, (req, res) => {
 
 app.post('/login', UserController.verifyUser, (req, res) => {
   console.log('User has logged in!');
+  console.log('Verified User: ', res.locals.user);
   res.status(200).json(res.locals.user);
 });
 
@@ -48,6 +49,12 @@ app.post('/login', UserController.verifyUser, (req, res) => {
 app.post('/connection', HubController.createHub, (req, res) => {
   const hubId = res.locals.hubId;
   res.status(200).json({ message: 'created hub', hubId });
+});
+
+app.get('/hubs/:user', UserController.getHub, (req, res) => {
+  console.log('Got the user hub: ', res.locals.hub);
+  const hub = res.locals.hub;
+  res.status(200).json(hub);
 });
 
 // AUTHORIZED ENDPOINT

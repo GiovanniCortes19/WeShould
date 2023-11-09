@@ -1,4 +1,5 @@
 const User = require('../models/UserModel');
+const Hub = require('../models/HubModel');
 
 const UserController = {};
 
@@ -8,9 +9,14 @@ UserController.createUser = async (req, res, next) => {
   console.log('request body from createUser: ', req.body);
 
   if (!username || !password) {
-    return next({ err: 'invalid user properties' });
+    return next({
+      log: 'Express global error handler caught UserController.createUser error',
+      status: 500,
+      message: { err: 'An error ocurred creating user' },
+    });
   }
 
+  // create user
   const newUser = await User.create({ username, password });
 
   res.locals.userId = newUser._id;
@@ -22,9 +28,14 @@ UserController.verifyUser = async (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return next({ err: 'invalid user properties' });
+    return next({
+      log: 'Express global error handler caught UserController.verifyUser error',
+      status: 500,
+      message: { err: 'An error ocurred verifying user' },
+    });
   }
 
+  // find user
   const foundUser = await User.findOne({ username, password });
 
   if (!foundUser) {
@@ -32,6 +43,36 @@ UserController.verifyUser = async (req, res, next) => {
   }
 
   res.locals.user = foundUser;
+
+  next();
+};
+
+UserController.getHub = async (req, res, next) => {
+  const { user } = req.params;
+
+  const foundUser = await User.findOne({ username: user });
+
+  if (!foundUser) {
+    next({
+      log: 'Express global error handler caught UserController.getHub error',
+      status: 500,
+      message: { err: 'An error ocurred getting hub of user' },
+    });
+  }
+
+  const userHubId = foundUser.hub;
+
+  const userHub = await Hub.findById(userHubId);
+
+  if (!userHub) {
+    next({
+      log: 'Express global error handler caught UserController.getHub error',
+      status: 500,
+      message: { err: 'An error ocurred getting hub of user' },
+    });
+  }
+
+  res.locals.hub = userHub;
 
   next();
 };

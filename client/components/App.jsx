@@ -28,7 +28,7 @@ const App = () => {
         setUser(username);
         setLoggedIn(true);
         setNeedAccount(false);
-        return response.json();
+        // return response.json();
       })
       .catch((err) => {
         console.log(err);
@@ -50,7 +50,7 @@ const App = () => {
       .then((response) => {
         setUser(username);
         setLoggedIn(true);
-        return response.json();
+        // return response.json();
       })
       .catch((err) => {
         console.log(err);
