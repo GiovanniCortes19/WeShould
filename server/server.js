@@ -65,6 +65,14 @@ app.post('/addMovie', HubController.addMovie, (req, res) => {
   res.status(200).json(updated);
 });
 
+// ADD RESTAURANT
+app.post('/addRestaurant', HubController.addRestaurant, (req, res) => {
+  const updated = res.locals.updatedHub;
+  console.log('Added a new restaurant!');
+  console.log('updated hub: ', updated);
+  res.status(200).json(updated);
+});
+
 // AUTHORIZED ENDPOINT
 
 // UNKOWN ENDPOINTS

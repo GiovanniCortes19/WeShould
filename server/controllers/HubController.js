@@ -49,4 +49,29 @@ HubController.addMovie = async (req, res, next) => {
   next();
 };
 
+HubController.addRestaurant = async (req, res, next) => {
+  const { hubId, restaurant } = req.body;
+
+  // find hub and update movie list
+  const foundHub = await Hub.findByIdAndUpdate(
+    hubId,
+    {
+      $push: { restaurants: restaurant },
+    },
+    { new: true }
+  );
+
+  if (!foundHub) {
+    return next({
+      log: 'Express global error handler caught HubController.addRestaurant error',
+      status: 500,
+      message: { err: 'An error ocurred pushing restaurant to hub of user' },
+    });
+  }
+
+  res.locals.updatedHub = foundHub;
+
+  next();
+};
+
 module.exports = HubController;

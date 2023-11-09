@@ -28,7 +28,28 @@ const Profile = ({ user }) => {
       .then((updated) => {
         setNewMovie('');
         setActiveHub(updated);
-        // return response.json();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const addRestaurant = (newRestaurant) => {
+    return fetch('http://localhost:8080/addRestaurant', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        hubId: activeHub._id,
+        restaurant: newRestaurant,
+      }),
+    })
+      .then((res) => res.json())
+      .then((updated) => {
+        setNewRestaurant('');
+        setActiveHub(updated);
       })
       .catch((err) => {
         console.log(err);
@@ -93,6 +114,7 @@ const Profile = ({ user }) => {
             setNewRestaurant={setNewRestaurant}
             addMovie={addMovie}
             setActiveHub={setActiveHub}
+            addRestaurant={addRestaurant}
           />
         )}
       </div>

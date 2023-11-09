@@ -8,7 +8,7 @@ const Hub = ({
   newRestaurant,
   setNewRestaurant,
   addMovie,
-  setActiveHub,
+  addRestaurant,
 }) => {
   // const [newMovie, setNewMovie] = useState('');
   // const [newRestaurant, setNewRestaurant] = useState('');
@@ -74,7 +74,13 @@ const Hub = ({
         <div className="ListBox flex">
           <p className="listTitle">Restaurants</p>
           <ul className="movieList">{rests}</ul>
-          <form action="" className="hubform flex">
+          <form
+            onSubmit={(e) => {
+              addRestaurant(newRestaurant);
+              e.preventDefault();
+            }}
+            className="hubform flex"
+          >
             <input
               className="hubinput"
               type="text"
