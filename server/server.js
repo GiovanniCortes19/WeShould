@@ -57,6 +57,14 @@ app.get('/hubs/:user', UserController.getHub, (req, res) => {
   res.status(200).json(hub);
 });
 
+// ADD MOVIE
+app.post('/addMovie', HubController.addMovie, (req, res) => {
+  const updated = res.locals.updatedHub;
+  console.log('Added a new movie!');
+  console.log('updated hub: ', updated);
+  res.status(200).json(updated);
+});
+
 // AUTHORIZED ENDPOINT
 
 // UNKOWN ENDPOINTS

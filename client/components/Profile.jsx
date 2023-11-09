@@ -6,8 +6,35 @@ import Hub from './Hub.jsx';
 
 const Profile = ({ user }) => {
   const [hubs, setHubs] = useState([]);
-
   const [activeHub, setActiveHub] = useState(null);
+
+  // prop drill test
+  const [newMovie, setNewMovie] = useState('');
+  const [newRestaurant, setNewRestaurant] = useState('');
+
+  const addMovie = (newMovie) => {
+    return fetch('http://localhost:8080/addMovie', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        hubId: activeHub._id,
+        movie: newMovie,
+      }),
+    })
+      .then((res) => res.json())
+      .then((updated) => {
+        setNewMovie('');
+        setActiveHub(updated);
+        // return response.json();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // prop drill test
 
   const enterHub = () => {
     setActiveHub(hubs[0]);
@@ -24,7 +51,7 @@ const Profile = ({ user }) => {
 
   useEffect(() => {
     getHubs();
-  }, []);
+  }, [activeHub]);
 
   return (
     <>
@@ -57,7 +84,17 @@ const Profile = ({ user }) => {
           </>
         )}
         {/* GO INSIDE HUB IF CLICKED */}
-        {activeHub && <Hub activeHub={activeHub} />}
+        {activeHub && (
+          <Hub
+            activeHub={activeHub}
+            newMovie={newMovie}
+            setNewMovie={setNewMovie}
+            newRestaurant={newRestaurant}
+            setNewRestaurant={setNewRestaurant}
+            addMovie={addMovie}
+            setActiveHub={setActiveHub}
+          />
+        )}
       </div>
     </>
   );
