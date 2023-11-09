@@ -4,10 +4,12 @@ import React, { useState } from 'react';
 import '../styles/styles.css';
 import LogIn from './LogIn.jsx';
 import SignIn from './SignIn.jsx';
+import Profile from './Profile.jsx';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [needAccount, setNeedAccount] = useState(false);
+  const [user, setUser] = useState('');
 
   const CreateUser = (username, password) => {
     console.log('api test: ', username, password);
@@ -23,6 +25,7 @@ const App = () => {
       }),
     })
       .then((response) => {
+        setUser(username);
         setLoggedIn(true);
         setNeedAccount(false);
         return response.json();
@@ -34,11 +37,7 @@ const App = () => {
 
   return (
     <>
-      {loggedIn && (
-        <div>
-          <h1 className="title">WeShould App</h1>
-        </div>
-      )}
+      {loggedIn && <Profile user={user} />}
 
       {needAccount && !loggedIn && <SignIn CreateUser={CreateUser} />}
 
