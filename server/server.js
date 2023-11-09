@@ -24,19 +24,25 @@ app.use(express.static(path.join(__dirname, '../client')));
 
 // CONTROLLERS
 const UserController = require('./controllers/UserController');
+const HubController = require('./controllers/HubController');
 
 // ROUTE HANDLERS
 
 app.get('/', (req, res) => {
   console.log('get login page');
   res.status(200).json('got the WeShould page');
-  // res.status(200).sendFile(path.resolve(__dirname, '../client/logIn.html'));
 });
 
 // SIGNUP
 app.post('/signup', UserController.createUser, (req, res) => {
   console.log('Created user id: ', res.locals.userId);
   res.status(200).json(res.locals.userId);
+});
+
+// CREATE HUB CONNECTIONS
+app.post('/connection', HubController.createHub, (req, res) => {
+  const hubId = res.locals.hubId;
+  res.status(200).json({ message: 'created hub', hubId });
 });
 
 // AUTHORIZED ENDPOINT

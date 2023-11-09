@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import '../styles/signUp.css';
 
-const SignIn = ({ setNeedAccount, setLoggedIn, testApiCreateUser }) => {
+const SignIn = ({ CreateUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -19,7 +19,7 @@ const SignIn = ({ setNeedAccount, setLoggedIn, testApiCreateUser }) => {
       <div className="signUp-container flex">
         <form
           onSubmit={(event) => {
-            testApiCreateUser(username, password);
+            CreateUser(username, password);
             event.preventDefault();
           }}
           className="flex"

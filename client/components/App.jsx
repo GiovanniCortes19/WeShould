@@ -9,7 +9,7 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [needAccount, setNeedAccount] = useState(false);
 
-  const testApiCreateUser = (username, password) => {
+  const CreateUser = (username, password) => {
     console.log('api test: ', username, password);
     return fetch('http://localhost:8080/signup', {
       method: 'POST',
@@ -40,13 +40,7 @@ const App = () => {
         </div>
       )}
 
-      {needAccount && !loggedIn && (
-        <SignIn
-          testApiCreateUser={testApiCreateUser}
-          setNeedAccount={setNeedAccount}
-          setLoggedIn={setLoggedIn}
-        />
-      )}
+      {needAccount && !loggedIn && <SignIn CreateUser={CreateUser} />}
 
       {!needAccount && !loggedIn && (
         <LogIn needAccount={needAccount} setNeedAccount={setNeedAccount} />
