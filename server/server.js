@@ -47,8 +47,8 @@ app.post('/login', UserController.verifyUser, (req, res) => {
 
 // CREATE HUB CONNECTIONS
 app.post('/connection', HubController.createHub, (req, res) => {
-  const hubId = res.locals.hubId;
-  res.status(200).json({ message: 'created hub', hubId });
+  const hub = res.locals.createdHub;
+  res.status(200).json({ message: 'created hub', hub });
 });
 
 app.get('/hubs/:user', UserController.getHub, (req, res) => {
